@@ -2,7 +2,13 @@ import {  Component } from "@angular/core"
 
 @Component ({
     selector: 'tareas',
-    template: 'Listado tareas: <div *ngFor="let tarea of tareas">Tarea: {{tarea.trabajo}}, Usuario: {{tarea.usuario}}'
+    template: `<h1>Listado tareas</h1>
+        <mat-card *ngFor="let tarea of tareas" style="margin:8px">
+        <mat-card-title>{{tarea.usuario}}</mat-card-title>
+        <mat-card-content>
+        <p>{{tarea.trabajo}}</p>
+        </mat-card-content>
+        </mat-card>`
 })
 
 export class TareasComponent {
@@ -10,4 +16,3 @@ export class TareasComponent {
             {trabajo: 'segunda tarea', usuario: 'Oliver'}
     ];
 }
-

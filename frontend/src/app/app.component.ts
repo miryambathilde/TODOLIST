@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { TareasComponent } from './tareas.component';
+
 
 @Component({
   selector: 'app-root',
-  template: 'Hola {{title}} <tareas></tareas><mat-slider min="1" max="100" step="1" value="1"></mat-slider>',
+  template: '<tareas></tareas>',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  {
   title = 'frontend';
 }
