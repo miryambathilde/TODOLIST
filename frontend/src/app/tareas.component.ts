@@ -12,6 +12,7 @@ import {  Component } from "@angular/core"
 })
 
 export class TareasComponent {
+    
     tareas = [{trabajo: 'primera tarea', usuario: 'Miryam'},
             {trabajo: 'segunda tarea', usuario: 'Oliver'}
     ];
