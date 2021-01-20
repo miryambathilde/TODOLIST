@@ -13,6 +13,7 @@ import { WebService } from './web.service'; //importamos el webservice
 })
 
 export class TareasComponent {
+    tareas: any //es del tipo any porque viene de un recurso externo
 
     //creamos un constructor con una variable privada
     constructor(private webservice: WebService){}
@@ -20,10 +21,6 @@ export class TareasComponent {
     //metodo OnInit asíncrono async y await en la respuesta//
     async ngOnInit(){
         let respuesta = await this.webservice.getTask();
-        console.log(respuesta);
+        this.tareas = respuesta; 
     }
-
-    tareas = [{trabajo: 'primera tarea', usuario: 'Miryam'},
-            {trabajo: 'segunda tarea', usuario: 'Oliver'}
-    ];
 }

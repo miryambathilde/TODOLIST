@@ -1,16 +1,20 @@
 var express = require('express');
 var cors = require('cors'); //cors
 var app = express();
+//variable CORS con su configuración SINGLE CORS
+var corsOpt = {
+    origin: 'http://localhost:4200', //URL que acepta el SINGLE CORS
+    optionSuccessStatus: 200 //DEVUELVE 200 si todo es correcto
+}
 
 //creamos la variable tareas con el objeto que tenemos en tareas.component.ts//
-var tareas = [{trabajo: 'primera tarea', usuario: 'Miryam'},
-            {trabajo: 'segunda tarea', usuario: 'Oliver'}];
+var tareas = [{trabajo: 'Primera tarea', usuario: 'Miryam Bathilde'},
+            {trabajo: 'Segunda tarea', usuario: 'Oliver Crevillen'}];
 
-/* Uso simple (habilitar todas las solicitudes CORS) */
-app.use(cors())
+
 
 /*peticion a tareas y ponemos que devuelva de respuesta un json y le pasamos las tareas*/
-app.get('/tareas', (req, res)=>{
+app.get('/tareas', cors(corsOpt),(req, res)=>{
     res.json(tareas); //
 })
 
