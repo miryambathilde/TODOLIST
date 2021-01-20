@@ -16,19 +16,27 @@ var tareas = [{trabajo: 'Primera tarea', usuario: 'Miryam Bathilde'},
 /* METODOS */
 app.use(bodyParser.json()); //ponemos nuestro metodo para el PARSEADOR JSON
 
+/*ENRUTADORES*/
+var api = express.Router(); //ENRUTADOR DE EXPRESS
+
 /*peticion a tareas y ponemos que devuelva de respuesta un json y le pasamos las tareas*/
-app.get('/tareas', cors(corsOpt),(req, res)=>{
+api.get('/tareas', cors(corsOpt),(req, res)=>{
     res.json(tareas); 
 })
 
 /*POST, va a tener una peticion que va a tener un body donde yo voy a 
 escribir la tercera tarea por ejemeplo. Una vez que yo muestre los datos,
 respondere con un estatus 200 si esta todo OK */
-app.post('/tarea', cors(corsOpt),(req, res)=>{
-    console.log(req.body); 
+api.post('/tarea', cors(corsOpt),(req, res)=>{
+    tareas.push(req.body); 
     res.sendStatus(200);
 })
+
+/* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 
+que es nuestro enrutador*/
+app.use('/api', api);
+
 /* para arrancar la aplicacion de express tenemos que utilizar un puerto, podemos
 poner el puerto que queramos siempre que no coincida con otro puerto que estemos utilizando */
-app.listen(1234);
+app.listen(7070);
 
