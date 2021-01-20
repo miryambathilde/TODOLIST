@@ -5,14 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TareasComponent } from './tareas.component';
+import { NuevaTareaComponent } from './nueva-tarea.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule} from '@angular/material/card';
+import { MatInputModule} from '@angular/material/input'; //INPUT FORM
+import {MatButtonModule} from '@angular/material/button'
 import { WebService } from './web.service'; //es un provider//
 
 @NgModule({
   declarations: [
     AppComponent,
     TareasComponent,
+    NuevaTareaComponent
   ],
 
   imports: [
@@ -20,6 +24,8 @@ import { WebService } from './web.service'; //es un provider//
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatInputModule,
+    MatButtonModule,
     HttpClientModule
   ],
 
