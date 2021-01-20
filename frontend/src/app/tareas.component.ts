@@ -1,4 +1,5 @@
-import {  Component } from "@angular/core"
+import { Component } from "@angular/core";
+import { WebService } from './web.service'; //importamos el webservice
 
 @Component ({
     selector: 'tareas',
@@ -12,6 +13,16 @@ import {  Component } from "@angular/core"
 })
 
 export class TareasComponent {
+
+    //creamos un constructor con una variable privada
+    constructor(private webservice: WebService){}
+
+    //metodo OnInit asíncrono async y await en la respuesta//
+    async ngOnInit(){
+        let respuesta = await this.webservice.getTask();
+        console.log(respuesta);
+    }
+
     tareas = [{trabajo: 'primera tarea', usuario: 'Miryam'},
             {trabajo: 'segunda tarea', usuario: 'Oliver'}
     ];
