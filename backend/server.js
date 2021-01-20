@@ -18,6 +18,8 @@ app.use(bodyParser.json()); //ponemos nuestro metodo para el PARSEADOR JSON
 
 /*ENRUTADORES*/
 var api = express.Router(); //ENRUTADOR DE EXPRESS
+//API REST CORS//
+api.use(cors())
 
 /*peticion a tareas y ponemos que devuelva de respuesta un json y le pasamos las tareas*/
 api.get('/tareas', cors(corsOpt),(req, res)=>{

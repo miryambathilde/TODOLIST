@@ -11,6 +11,7 @@ import { MatCardModule} from '@angular/material/card';
 import { MatInputModule} from '@angular/material/input'; //INPUT FORM
 import {MatButtonModule} from '@angular/material/button'
 import { WebService } from './web.service'; //es un provider//
+import { FormsModule } from '@angular/forms'; //import statement
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { WebService } from './web.service'; //es un provider//
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
 
   providers: [WebService],
