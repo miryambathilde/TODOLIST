@@ -14,6 +14,9 @@ import { MatInputModule} from '@angular/material/input'; //INPUT FORM
 import { MatButtonModule} from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar'; //toolbar
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+
 import { WebService } from './web.service'; //es un provider//
 import { FormsModule } from '@angular/forms';
 
@@ -37,6 +40,8 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule,
     MatToolbarModule,
     HttpClientModule,
+    MatMenuModule,
+    MatIconModule,
     FormsModule
   ],
 
