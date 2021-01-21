@@ -31,7 +31,7 @@ escribir la tercera tarea por ejemeplo. Una vez que yo muestre los datos,
 respondere con un estatus 200 si esta todo OK */
 api.post('/tarea', cors(corsOpt),(req, res)=>{
     tareas.push(req.body); 
-    res.sendStatus(200);
+    res.json(req.body); // cambiamos sendStatus(200); por json(req.body)
 })
 
 /* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 

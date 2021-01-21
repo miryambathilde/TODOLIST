@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from "@angular/core"; //añadimos Output, EventEmitter//
+import { Component } from "@angular/core"; //quitamos Output, EventEmitter//
 import { WebService } from './web.service'; //importamos el webservice
 
 @Component ({
@@ -23,8 +23,6 @@ import { WebService } from './web.service'; //importamos el webservice
 })
 
 export class NuevaTareaComponent {
-    //queremos hacer una salida llamada nuevaTarea, que es igual a la emisión de un nuevo evento//
-    @Output() nuevaTarea = new EventEmitter();
     
     //creamos un constructor con una variable privada
     constructor(private webservice: WebService){}
@@ -32,6 +30,5 @@ export class NuevaTareaComponent {
     tarea= {trabajo: '', usuario: ''}
     post(){
         this.webservice.postTask(this.tarea);
-        this.nuevaTarea.emit(this.tarea); //la nueva tarea emitirá y le pasamos por parametro tarea, que es la nueva tarea que se añade
     }
 }
