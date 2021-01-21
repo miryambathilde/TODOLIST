@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { TareasComponent } from './tareas.component';
-import { NuevaTareaComponent } from './nueva-tarea.component';
-import {MatRadioModule} from '@angular/material/radio';
-
+import { NavComponent } from './nav.component'; //import statement
 
 @Component({
   selector: 'app-root',
-  /* le decimos que capture la nuevaTarea y que es igual al metodo que acabamos de enlazar
-  nTarea y le pasamos el parametro que pasa ese evento*/
-  template: '<nueva-tarea></nueva-tarea><tareas></tareas>',
+  template: '<nav></nav><router-outlet></router-outlet>', //cabecera de nav y el router para ir modificando los distintos componentes
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
 
 }
+
+/* router-outlet: va a estar llamando desde el enrutador a cualquiera que sea el componente activo */
