@@ -1,27 +1,50 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
-
-@Component ({
-    selector: 'nav',
-    template: `<mat-toolbar color="primary">Lista de tareas
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/"> <!-- añadimos el enrutador -->
-            <mat-icon>home</mat-icon>
-            <span>Inicio</span>
-        </button>
-        <button mat-menu-item routerLink="/tareas"> <!-- añadimos el enrutador -->
-            <mat-icon>assignment_turned_in</mat-icon>
-            <span>Tareas</span>
-        </button>
-        </mat-menu>
-        </mat-toolbar>`
+@Component({
+  selector: 'nav',
+  template: `<mat-toolbar color="primary">Lista de tareas
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/">
+    <mat-icon>home</mat-icon>
+    <span>Inicio</span>
+  </button>
+  <button mat-menu-item routerLink="/tareas">
+    <mat-icon>assignment_turned_in</mat-icon>
+    <span>Tareas</span>
+  </button>
+  <button mat-menu-item routerLink="/login">
+    <mat-icon>assignment_ind</mat-icon>
+    <span>Identifícate</span>
+  </button>
+  <button mat-menu-item routerLink="/register">
+    <mat-icon>assignment_ind</mat-icon>
+    <span>Registrarse</span>
+  </button>
+  <button mat-menu-item routerLink="/" (click)="logout()">
+    <mat-icon>highlight_off</mat-icon>
+    <span>Cerrar sesión</span>
+  </button>
+</mat-menu>
+<span style="flex: 1 1 auto"></span>
+<span *ngIf="ident" >Bienvenido {{name}}</span>
+  </mat-toolbar>
+    `
 })
-
 export class NavComponent {
 
-    constructor(){}
+  name: string;
+  ident: boolean;
+  constructor(private auth: AuthService){
+    this.name = auth.name;
+    this.ident = auth.identificado;
+
+  }
+  logout(){
+    localStorage.clear();
+  }
 
 }
