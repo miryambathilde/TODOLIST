@@ -14,12 +14,14 @@ import { ActivatedRoute, Params } from "@angular/router";
 })
 
 export class TareasComponent {
-
+    username: any; 
+    
     //lo pasamos a publico para que se pueda acceder desde cualquier sitio a él
     constructor(public webservice: WebService, private rutaActiva: ActivatedRoute){}
 
     /* CREAMOS NUESTRO PROPIO METODO ON INIT */
     ngOnInit(): void {
-        console.log(this.rutaActiva.snapshot.params.username);
+        this.username = (this.rutaActiva.snapshot.params.username);
+        this.webservice.getTask(this.username);
     }
 }

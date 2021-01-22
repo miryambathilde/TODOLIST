@@ -9,8 +9,9 @@ var corsOpt = {
 }
 
 //creamos la variable tareas con el objeto que tenemos en tareas.component.ts//
-var tareas = [{trabajo: 'Primera tarea', usuario: 'Miryam Bathilde'},
-            {trabajo: 'Segunda tarea', usuario: 'Oliver Crevillen'}];
+//ponemos identificadores a las tareas//
+var tareas = [{_id: 1, trabajo: 'Primera tarea', usuario: 'Miryam Bathilde'},
+            {_id: 2, trabajo: 'Segunda tarea', usuario: 'Oliver Crevillen'}];
 
 
 /* METODOS */
@@ -24,6 +25,14 @@ api.use(cors())
 /*peticion a tareas y ponemos que devuelva de respuesta un json y le pasamos las tareas*/
 api.get('/tareas', cors(corsOpt),(req, res)=>{
     res.json(tareas); 
+})
+/* duplicamos el metodo GET y le agregamos a la ruta :username y definimos las variables, 
+username y resultado, de este metodo nos devuelve las tareas filtrado por username y 
+nos mostrará solamente aquellas que introduzco por parametro */
+api.get('/tareas/:username', cors(corsOpt),(req, res)=>{
+    var username = req.params.username;
+    var resultado = tareas.filter(tarea => tarea.usuario == username);
+    res.json(resultado); 
 })
 
 /*POST, va a tener una peticion que va a tener un body donde yo voy a 

@@ -1,5 +1,3 @@
-//creamos un servicio//
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core'; //al ser un servicio es un injectable
 import { MatSnackBar } from '@angular/material/snack-bar'; //SNACK-BAR
@@ -17,15 +15,17 @@ export class WebService {
 
     constructor (private http: HttpClient, private _snackBar: MatSnackBar){ //concatenamos el snackbar
         this.tareas = []; //tareas lo inicializamos vacio
-        this.getTask(); //añadimos el getTask para que cargue el listado de tareas al ser asíncrono
+        this.getTask(''); //añadimos el getTask para que cargue el listado de tareas al ser asíncrono
     }
 
     /*METODOS*/
     /* SINGLETON, al estar en webservice estará disponible para todos los componentes sin necesidad de id capturando todos los eventos desde un hijo */
-    async getTask() {
+    async getTask(username) {
         //MODULO TRY CATCH
         try {
-            this.respuesta = await this.http.get(this.APIURL + '/tareas').toPromise(); //hacemos respuesta asicrono
+            /* si hay username, dale el valor username, si no simplemente utilizas username y lo dejas vacío */
+            username = (username) ? '/' + username : '';
+            this.respuesta = await this.http.get(this.APIURL + '/tareas' + username).toPromise();//si hay username lo pondrá y si no lo dejará vacío
             this.tareas = this.respuesta; //y una vez que obtengo la respuesta le paso los valores a tareas
         } catch (error) {
             this.manejadorErrores('No se han podido obtener las tareas solicitadas'); //PASAMOS EL METODO DE MANEJADOR DE ERRORES con el mensaje que queremos mostrar
