@@ -19,17 +19,14 @@ export class WebService {
     }
 
     /*METODOS*/
-    /* SINGLETON, al estar en webservice estará disponible para todos los componentes sin necesidad de id capturando todos los eventos desde un hijo */
-    async getTask(username) {
-        //MODULO TRY CATCH
-        try {
+    getTask(username) {
             /* si hay username, dale el valor username, si no simplemente utilizas username y lo dejas vacío */
             username = (username) ? '/' + username : '';
-            this.respuesta = await this.http.get(this.APIURL + '/tareas' + username).toPromise();//si hay username lo pondrá y si no lo dejará vacío
-            this.tareas = this.respuesta; //y una vez que obtengo la respuesta le paso los valores a tareas
-        } catch (error) {
+            this.http.get(this.APIURL + '/tareas' + username).subscribe(res => {
+                this.tareas = res;  
+            }, error => {
             this.manejadorErrores('No se han podido obtener las tareas solicitadas'); //PASAMOS EL METODO DE MANEJADOR DE ERRORES con el mensaje que queremos mostrar
-        }
+        });
     }
     
     //MODULO TRY CATCH
