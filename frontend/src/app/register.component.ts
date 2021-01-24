@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth.service'; //importamos el servicio AuthService
 
 
 @Component({
@@ -14,7 +14,7 @@ import { AuthService } from './auth.service';
 })
 export class RegisterComponent {
   form: any;
-  constructor(private fb: FormBuilder, private auth: AuthService){
+  constructor(private fb: FormBuilder, private auth: AuthService){ //declaramos como privado el servicio AuthService
     this.form = fb.group({
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
@@ -26,7 +26,7 @@ export class RegisterComponent {
 
   onSubmit(){
     console.log(this.form.errors);
-    this.auth.register(this.form.value);
+    this.auth.register(this.form.value); //aqui llamamaos al metodo register que tenemos en el servicio authService, espera por parametro los valores del formulario
   }
 
   isValid(control){

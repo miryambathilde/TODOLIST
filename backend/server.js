@@ -13,12 +13,15 @@ var corsOpt = {
 var tareas = [{_id: 1, trabajo: 'Primera tarea', usuario: 'Miryam Bathilde'},
             {_id: 2, trabajo: 'Segunda tarea', usuario: 'Oliver Crevillen'}];
 
+var users = [] //creamos la var user y lo iniciamos como un array vacio que luego sustituira a la query de la base de datos
+
 
 /* METODOS */
 app.use(bodyParser.json()); //ponemos nuestro metodo para el PARSEADOR JSON
 
 /*ENRUTADORES*/
 var api = express.Router(); //ENRUTADOR DE EXPRESS
+var auth = express.Router(); //ENRUTADOR AUTH DE EXPRESS 
 //API REST CORS//
 api.use(cors())
 
@@ -43,9 +46,16 @@ api.post('/tarea', cors(corsOpt),(req, res)=>{
     res.json(req.body); // cambiamos sendStatus(200); por json(req.body)
 })
 
+auth.use(cors())
+auth.post('/register', cors(corsOpt),(req, res)=>{
+    users.push(req.body);
+    console.log(users);
+})
+
 /* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 
 que es nuestro enrutador*/
 app.use('/api', api);
+app.use('/auth', auth); //api REST DE AUTH
 
 /* para arrancar la aplicacion de express tenemos que utilizar un puerto, podemos
 poner el puerto que queramos siempre que no coincida con otro puerto que estemos utilizando */

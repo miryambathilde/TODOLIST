@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar'; //esto es para mostrar errores en caso de que se produzca cualquier incidencia con el registro del usuario
 import { Router } from '@angular/router';
 
 
 @Injectable()
 
-export class AuthService {
+export class AuthService { //cambiamos el nombre de la clase para evitar futuros problemas 
 
-  APIURL = 'http://localhost:7070/auth';
+  APIURL = 'http://localhost:7070/auth'; //la api ahora apunta a /auth, para tener nuestro propio enrutador para las tareas de registro, identificación y demás
   userinfo: any;
 
 
@@ -24,14 +24,14 @@ export class AuthService {
 
 
   register(user) {
-        delete user.cpassword;
+        delete user.cpassword; //delete para eliminar una propiedad del objeto
         this.http.post(this.APIURL + '/register', user).subscribe(res => {
           this.userinfo = res;
           localStorage.setItem('token', this.userinfo.token);
           localStorage.setItem('nombre', this.userinfo.nombre);
           this.router.navigate(['/']);
          }, error => {
-        this.manejadorErrores('No se ha podido registrar al usuario');
+        this.manejadorErrores('No se ha realizar el registro del usuario');
     });
 
   }
