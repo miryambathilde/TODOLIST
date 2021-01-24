@@ -18,10 +18,10 @@ export class RegisterComponent {
     this.form = fb.group({
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
-      email: ['', [Validators.required, validEmail()]],
+      email: ['', [Validators.required, validEmail()]], //metodo validador email//
       password: ['', Validators.required],
       cpassword: ['', Validators.required]
-    }, {validator: isntSame('password', 'cpassword')});
+    }, {validator: isntSame('password', 'cpassword')}); //metodo de validador adicional de password//
   }
 
   onSubmit(){
@@ -35,6 +35,7 @@ export class RegisterComponent {
 
 }
 
+//Booleano para validador de password - que tienen que coincidir//
 function isntSame(field1, field2){
   return form => {
     if (form.controls[field1].value !==  form.controls[field2].value){
@@ -43,6 +44,7 @@ function isntSame(field1, field2){
   }
 }
 
+//PEGAMOS EL CODIGO JAVASCRIPT DE REGEX//
 function validEmail(){
   return control =>{
     // tslint:disable-next-line:max-line-length
