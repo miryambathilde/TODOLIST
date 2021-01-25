@@ -1,6 +1,9 @@
 var express = require('express');
 var cors = require('cors'); //cors
-var bodyParser = require('body-parser') //parseador JSON para express
+var bodyParser = require('body-parser'); //parseador JSON para express
+var jwt = require('jsonwebtoken'); //libreria que genera los TOKENS jwt= json web TOKEN
+var config = require ('./configs/config'); //variable que contiene nuestro archivo de congiguración
+
 var app = express();
 //variable CORS con su configuración SINGLE CORS
 var corsOpt = {
@@ -48,8 +51,11 @@ api.post('/tarea', cors(corsOpt),(req, res)=>{
 
 auth.use(cors())
 auth.post('/register', cors(corsOpt),(req, res)=>{
-    users.push(req.body);
-    console.log(users);
+    var index = users.push(req.body) -1; //con esto conseguimos el valor del indice numerico del usuario cuando se cree 
+    var user = users [index]; //este es el valor que vamos a pasar cuando se cree el token
+    user.id = index;
+    var token = jwt.sign (user.id, config.llave); //aqui tenemos la libreria con el metodo sign
+    res.json(token); //recibir respuesta json con TOKEN
 })
 
 /* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 
