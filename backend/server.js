@@ -55,7 +55,7 @@ auth.post('/register', cors(corsOpt),(req, res)=>{
     var user = users [index]; //este es el valor que vamos a pasar cuando se cree el token
     user.id = index;
     var token = jwt.sign (user.id, config.llave); //aqui tenemos la libreria con el metodo sign
-    res.json(token); //recibir respuesta json con TOKEN
+    res.json ({nombre: user.nombre, token}); //convertimos el token en un objeto y lo asociamos a nombre, concatenandolo con user.nombre
 })
 
 /* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 

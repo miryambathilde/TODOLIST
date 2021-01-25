@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth.service'; //importamos el servicio AuthService
 
 @Component({
   selector: 'nav',
@@ -29,20 +29,20 @@ import { AuthService } from './auth.service';
     <span>Cerrar sesión</span>
   </button>
 </mat-menu>
-<span style="flex: 1 1 auto"></span>
-<span *ngIf="ident" >Bienvenido {{name}}</span>
+<span style="flex: 1 1 auto"></span> <!-- esto fuerza que el span de bienvenido este siempre en la derecha -->
+<span *ngIf="ident" >Bienvenido {{name}}</span> <!-- saludo al usuario, SI ESTÁ identificado -->
   </mat-toolbar>
     `
 })
 export class NavComponent {
 
-  name: string;
-  ident: boolean;
-  constructor(private auth: AuthService){
-    this.name = auth.name;
-    this.ident = auth.identificado;
-
+  name: string; //creamos la propiedad name del tipo string
+  ident: boolean; //creamos la propiedad ident del tipo string
+  constructor(private auth: AuthService){ //private y asociamos auth a AuthService
+    this.name = auth.name; //asociamos name al nombre de usuario que conseguimos con el get name de authservice
+    this.ident = auth.identificado; //asociamos ident al usuario identificado que conseguimos con el get identificado de authservice
   }
+  
   logout(){
     localStorage.clear();
   }
