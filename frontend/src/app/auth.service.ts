@@ -27,9 +27,7 @@ export class AuthService { //cambiamos el nombre de la clase para evitar futuros
         delete user.cpassword; //delete para eliminar una propiedad del objeto
         this.http.post(this.APIURL + '/register', user).subscribe(res => {
           this.userinfo = res;
-          localStorage.setItem('token', this.userinfo.token);
-          localStorage.setItem('nombre', this.userinfo.nombre);
-          this.router.navigate(['/']);
+          localStorage.setItem('token', res.toString());//localStorage + set item(almacenar un elemento),'token' es el clave valor, y la respuesta que esperamos es un string
          }, error => {
         this.manejadorErrores('No se ha realizar el registro del usuario');
     });
