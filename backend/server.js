@@ -1,3 +1,4 @@
+/* Dependencias implicitas */
 var express = require('express');
 var cors = require('cors'); //cors
 var bodyParser = require('body-parser'); //parseador JSON para express
@@ -16,7 +17,7 @@ var corsOpt = {
 var tareas = [{_id: 1, trabajo: 'Primera tarea', usuario: 'Miryam Bathilde'},
             {_id: 2, trabajo: 'Segunda tarea', usuario: 'Oliver Crevillen'}];
 
-var users = [] //creamos la var user y lo iniciamos como un array vacio que luego sustituira a la query de la base de datos
+var users = [{nombre: 'Miryam', email: 'nomail@gmail.com', password: '1234', id: 0}]; //creamos la var user
 
 
 /* METODOS */
@@ -50,13 +51,32 @@ api.post('/tarea', cors(corsOpt),(req, res)=>{
 })
 
 auth.use(cors())
+
+auth.post('/login', cors(corsOpt),(req, res)=>{
+    var user = user.find(user => user.email == req.body.email); //encuentrame al usuario, que tengo almacenado en la var user, cuyo email coincide con el que me esta llegando
+    if(!user)
+    senderrorauth(res);
+    if (user.password == req.body.password)
+    sendtoken(user, res);
+    else
+    senderrorauth(res);
+})
+
 auth.post('/register', cors(corsOpt),(req, res)=>{
     var index = users.push(req.body) -1; //con esto conseguimos el valor del indice numerico del usuario cuando se cree 
     var user = users [index]; //este es el valor que vamos a pasar cuando se cree el token
     user.id = index;
-    var token = jwt.sign (user.id, config.llave); //aqui tenemos la libreria con el metodo sign
-    res.json ({nombre: user.nombre, token}); //convertimos el token en un objeto y lo asociamos a nombre, concatenandolo con user.nombre
+    sendtoken(user, res);
 })
+
+function sendtoken(user, res) {
+    var token = jwt.sign (user.id, config.llave); //aqui tenemos la libreria con el metodo sign
+    res.json({nombre: user.nombre, token}); //convertimos el token en un objeto y lo asociamos a nombre, concatenandolo con user.nombre
+}
+
+function senderrorauth(res){
+    return res.json({success: false, message: 'Email o password erroneo'});
+}
 
 /* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 
 que es nuestro enrutador*/

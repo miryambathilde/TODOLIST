@@ -31,7 +31,7 @@ export class LoginComponent {
   }
 
   login(){
-    console.log(this.logindata);
+    this.auth.login(this.logindata);
   }
 
 }

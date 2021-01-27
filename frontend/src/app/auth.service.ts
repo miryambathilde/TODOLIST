@@ -10,6 +10,7 @@ export class AuthService { //cambiamos el nombre de la clase para evitar futuros
 
   APIURL = 'http://localhost:7070/auth'; //la api ahora apunta a /auth, para tener nuestro propio enrutador para las tareas de registro, identificación y demás
   userinfo: any; //creamos el objeto userinfo
+  error: any;
 
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar, private router: Router) {} //añadimos como private el router
@@ -23,6 +24,16 @@ export class AuthService { //cambiamos el nombre de la clase para evitar futuros
     return !!localStorage.getItem('token');//Para que se muestre solo el mensaje de bienvenido cuando esta identificado
   }
 
+  /* metodo LOGIN con el userdata vamos a verificar que el usuario existe en nuestra base de datos y que el password coincide*/
+  login(logindata){
+    this.http.post(this.APIURL + '/login', logindata).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  logout () {
+    localStorage.clear();
+  }
 
   register(user) {
         delete user.cpassword; //delete para eliminar una propiedad del objeto

@@ -38,14 +38,16 @@ export class NavComponent {
 
   name: string; //creamos la propiedad name del tipo string
   ident: boolean; //creamos la propiedad ident del tipo string
+
   constructor(private auth: AuthService) { //private y asociamos auth a AuthService
     this.name = auth.name; //asociamos name al nombre de usuario que conseguimos con el get name de authservice
     this.ident = auth.identificado; //asociamos ident al usuario identificado que conseguimos con el get identificado de authservice
   }
   
-  /* metodo logout que llama a LocalStorage y hace un clear*/
+  /* metodo logout es llamado desde el metodo logout que hemos puesto en auth service al ser privado,
+  pues desde la vista no deberíamos llamar a un elemento privado */
   logout(){
-    localStorage.clear();
+    this.auth.logout();
   }
 
 }
