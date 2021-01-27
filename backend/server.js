@@ -50,6 +50,10 @@ api.post('/tarea', cors(corsOpt),(req, res)=>{
     res.json(req.body); // cambiamos sendStatus(200); por json(req.body)
 })
 
+api.get('/users/yop', cors,{corsOpt}, ckeckauth, (req, res)=>{
+    res.json(users[req.user])
+})
+
 auth.use(cors())
 
 auth.post('/login', cors(corsOpt),(req, res)=>{
@@ -77,7 +81,18 @@ function sendtoken(user, res) {
 function senderrorauth(res){
     return res.json({success: false, message: 'Email o password erroneo'});
 }
-
+//DECLARACIÓN middleware es cheackauth//
+function checkauth (req, res, next) {
+    if(!req.header('Authorization'))
+    return res.status(401).send({message: 'No tienes autorización'})
+    var token = req.header('authorization').split(' ')[1];
+    var decode =jwt.verify(token, config.llave);
+    if(!decode)
+    return res.status(401).send({message: 'El token no es válido'})
+    req.user = decode;
+    console.log('ID usuario: ', decode)
+    next();
+}
 /* Mi aplicación va a utilizar de base api rest, y le pasamos como parametro api, 
 que es nuestro enrutador*/
 app.use('/api', api);
