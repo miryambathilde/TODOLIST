@@ -27,7 +27,7 @@ export class AuthService { //cambiamos el nombre de la clase para evitar futuros
   /* metodo LOGIN con el userdata vamos a verificar que el usuario existe en nuestra base de datos y que el password coincide*/
   login(logindata){
     this.http.post(this.APIURL + '/login', logindata).subscribe(res => {
-      console.log(res);
+      this.identificacion(res); //AQUI LLAMAMOS AL METODO IDENTIFICACION
     });
   }
 
@@ -38,14 +38,18 @@ export class AuthService { //cambiamos el nombre de la clase para evitar futuros
   register(user) {
         delete user.cpassword; //delete para eliminar una propiedad del objeto
         this.http.post(this.APIURL + '/register', user).subscribe(res => {
-          this.userinfo = res;
-          localStorage.setItem('token', this.userinfo.token);//localStorage + set item + userinfo (que es respuesta)y token
-          localStorage.setItem('nombre', this.userinfo.nombre);//localStorage + set item + userinfo (que es respuesta)y nombre
-          this.router.navigate(['/']); //añadimos el router con la url de la raiz para redireccionar directamente
+          this.identificacion(res); //AQUI LLAMAMOS AL METODO IDENTIFICACION
          }, error => {
         this.manejadorErrores('No se ha realizar el registro del usuario');
     });
 
+  }
+  //AGREGRAMOS METODO PARA IDENTIFICACION
+  identificacion(res){
+    this.userinfo = res;
+    localStorage.setItem('token', this.userinfo.token);//localStorage + set item + userinfo (que es respuesta)y token
+    localStorage.setItem('nombre', this.userinfo.nombre);//localStorage + set item + userinfo (que es respuesta)y nombre
+    this.router.navigate(['/']); //añadimos el router con la url de la raiz para redireccionar directamente
   }
 
   private manejadorErrores(error) {
