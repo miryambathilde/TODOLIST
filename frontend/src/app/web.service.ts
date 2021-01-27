@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; //añadimos los HttpHeaders
 import { Injectable } from '@angular/core'; //al ser un servicio es un injectable
 import { MatSnackBar } from '@angular/material/snack-bar'; //SNACK-BAR
 import { Subject } from "rxjs";//para usar el subject es imprescindible que tengamos la librería rxjs
+import { map } from 'rxjs/operators';
+
 
 @Injectable()
 
@@ -14,6 +16,8 @@ export class WebService {
     tareas: any;
     respuesta: any;
     tareasSujeto = new Subject(); //declaramos la instancia de subject
+    private: any;
+    
 
     constructor (private http: HttpClient, private _snackBar: MatSnackBar){ //concatenamos el snackbar
         this.tareas = []; //tareas lo inicializamos vacio
@@ -39,14 +43,21 @@ export class WebService {
             this.tareas.push(this.respuesta); //cuando lo asignamos a tareas le hacemos un push y en ese push es donde pasamos la respuesta
             this.tareasSujeto.next(this.tareas);
         } catch (error) {
-            this.manejadorErrores('No se ha podido publicar la tarea');
+          this.manejadorErrores('No se ha podido publicar la tarea');
         }  
     }
+
+    /* metodo getuser CON HttpHeaders para conseguir el token alamacenado  */
+    getUser() {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        this.http.get(this.APIURL + '/users/yop', {headers}).pipe(map(res => res)).subscribe();
 
     /* METODO PRIVADO DE MANEJADOR DE ERRORES */
     private manejadorErrores(error) {
         this._snackBar.open(error, 'Cerrar', {
-            duration: 4000,
+          duration: 2000,
         });
     }
 }
