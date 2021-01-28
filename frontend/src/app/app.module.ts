@@ -1,56 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-
 
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
-import { TareasComponent } from './tareas.component';
-import { NuevaTareaComponent } from './nueva-tarea.component';
-import { NavComponent } from './nav.component';
-import { HomeComponent } from './home.component';
-import { RegisterComponent } from './register.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
+import { BoardUserComponent } from './board-user/board-user.component';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import { WebService } from './web.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './auth.service';
-import { LoginComponent } from './login.component';
-
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TareasComponent,
-    NuevaTareaComponent,
-    NavComponent,
-    HomeComponent,
+    LoginComponent,
     RegisterComponent,
-    LoginComponent
+    HomeComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    BoardModeratorComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    HttpClientModule
   ],
-  providers: [WebService, AuthService],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
